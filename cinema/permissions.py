@@ -10,3 +10,12 @@ class IsAdminOrIfAuthenticatedReadOnly(BasePermission):
         ) or (
             request.user and request.user.is_staff
         )
+
+
+class OrderAuthenticatedCreateOnly(BasePermission):
+    def has_permission(self, request, view):
+        return bool(
+            request.method == "POST" and request.user.is_authenticated
+        ) or (
+            request.user.is_authenticated
+        )
